@@ -1,0 +1,6 @@
+export enum StatusBarType {
+  IN_PROGRESS = "IN_PROGRESS",
+  DONE = "DONE",
+  UNTRANSLATED = "UNTRANSLATED",
+  DELAYED = "DELAYED",
+}
