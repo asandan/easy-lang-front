@@ -2,12 +2,13 @@ import {
   getStatusBarColor,
   getStatusBarIcon,
   getStatusBarText,
-  StatusBarType,
+  OrderStatus,
+  STATUS,
 } from "@/shared/util";
 import { FC } from "react";
 
 export type StatusBarProps = {
-  status: StatusBarType;
+  status: STATUS;
 };
 
 export const StatusBar: FC<StatusBarProps> = ({ status }) => {
@@ -18,7 +19,7 @@ export const StatusBar: FC<StatusBarProps> = ({ status }) => {
   ];
 
   const canUpload =
-    status === StatusBarType.IN_PROGRESS || status === StatusBarType.UNTRANSLATED;
+    status === STATUS.IN_PROGRESS || status === STATUS.NOT_STARTED || status === STATUS.OVERDUE;
 
   return (
     <div className="w-full h-[120px] flex">
@@ -35,7 +36,7 @@ export const StatusBar: FC<StatusBarProps> = ({ status }) => {
         </div>
       </div>
       {canUpload && (
-        <div className="flex w-1/5 bg-[#014FB7] h-full rounded-br-lg text-white text-lg items-center justify-center">
+        <div className="flex w-1/5 bg-[#014FB7] h-full rounded-br-lg text-white text-lg items-center justify-center cursor-pointer">
           UPLOAD
         </div>
       )}

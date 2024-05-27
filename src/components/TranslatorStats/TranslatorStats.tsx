@@ -1,38 +1,85 @@
 import { Avatar } from "@mui/material";
+import { FC } from "react";
 
-export const TranslatorStats = () => {
+export type TranslatorStats = {
+  name: string;
+  surname: string;
+  avatarUrl?: string;
+  completed: number;
+  overdue: number;
+  total: number;
+  inProgress: number;
+  notStarted: number;
+};
+
+export const TranslatorStats: FC<TranslatorStats> = ({
+  name,
+  surname,
+  avatarUrl,
+  completed,
+  overdue,
+  total,
+  inProgress,
+  notStarted,
+}) => {
   return (
-    <div className="flex flex-col justify-between w-[300px] h-[255px] bg-white p-5 rounded-xl mt-5">
+    <div className="flex flex-col justify-between w-[300px] h-[300px] bg-white p-5 rounded-xl mt-5">
       <div className="flex flex-row gap-1.5">
-        <Avatar variant="square">N</Avatar>
-        <span className="self-center">Talgat Galymzhan</span>
+        <Avatar variant="square">
+          {avatarUrl ? <img src={avatarUrl} alt="avatar" /> : name[0] + surname[0]}
+        </Avatar>
+        <span className="self-center">{[name, surname].join(" ")}</span>
       </div>
       <div className="flex flex-col gap-1.5 text-lg">
         <div className="flex flex-row gap-1">
-          <span className="text-[#bbb]">Done:</span>
-          <span>40</span>
+          <span className="text-[#bbb]">Total:</span>
+          <span>{total}</span>
         </div>
         <div className="flex flex-row gap-1">
-          <span className="text-[#bbb]">Not fulfilled:</span>
-          <span>0</span>
+          <span className="text-[#bbb]">Completed:</span>
+          <span>{completed}</span>
         </div>
         <div className="flex flex-row gap-1">
-          <span className="text-[#bbb]">Executed:</span>
-          <span>20</span>
+          <span className="text-[#bbb]">Overdue:</span>
+          <span>{overdue}</span>
+        </div>
+        <div className="flex flex-row gap-1">
+          <span className="text-[#bbb]">In progress:</span>
+          <span>{inProgress}</span>
+        </div>
+        <div className="flex flex-row gap-1">
+          <span className="text-[#bbb]">Not started:</span>
+          <span>{notStarted}</span>
         </div>
       </div>
-      <div className="flex flex-row w-[250px]">
-        <div className="flex flex-col">
-          <div className="h-[12px] bg-[#CA0F22] w-[78px] rounded-l-xl"></div>
-          <span>32%</span>
+      <div className="flex flex-row gap-1 w-[100px]">
+        <div className="flex flex-col items-center">
+          <div
+            className="h-[12px] bg-[#02B887] rounded-l-xl"
+            style={{ width: `${(completed / total) * 100}%` }}
+          ></div>
+          <span className="ml-2 text-sm">{((completed / total) * 100).toFixed(0)}%</span>
         </div>
-        <div className="flex flex-col self-center">
-          <div className="h-[11.8px] bg-[#02B887] w-[108px] self-center"></div>
-          <span>46%</span>
+        <div className="flex flex-col items-center">
+          <div
+            className="h-[12px] bg-[#CA0F22]"
+            style={{ width: `${(overdue / total) * 100}%` }}
+          ></div>
+          <span className="ml-2 text-sm">{((overdue / total) * 100).toFixed(0)}%</span>
         </div>
-        <div className="flex flex-col ">
-          <div className="h-[12px] bg-[#EF9B0F] w-[68px] rounded-r-xl"></div>
-          <span>22%</span>
+        <div className="flex flex-col items-center">
+          <div
+            className="h-[12px] bg-[#EF9B0F]"
+            style={{ width: `${(inProgress / total) * 100}%` }}
+          ></div>
+          <span className="ml-2 text-sm">{((inProgress / total) * 100).toFixed(0)}%</span>
+        </div>
+        <div className="flex flex-col items-center">
+          <div
+            className="h-[12px] bg-[#638BC8] rounded-r-xl"
+            style={{ width: `${(notStarted / total) * 100}%` }}
+          ></div>
+          <span className="ml-2 text-sm">{((notStarted / total) * 100).toFixed(0)}%</span>
         </div>
       </div>
     </div>

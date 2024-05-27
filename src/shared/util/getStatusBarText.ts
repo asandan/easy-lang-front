@@ -1,14 +1,14 @@
-import { StatusBarType } from "./constants";
+import { OrderStatus, STATUS } from "./constants";
 
-export const getStatusBarText = (status: StatusBarType) => {
+export const getStatusBarText = (status: STATUS) => {
   switch (status) {
-    case StatusBarType.IN_PROGRESS:
+    case STATUS.IN_PROGRESS:
       return "In progress";
-    case StatusBarType.DONE:
-      return "Translated"
-    case StatusBarType.UNTRANSLATED:
-      return "Not translated";
-    case StatusBarType.DELAYED: 
-      return "Delayed"
+    case STATUS.TRANSLATED:
+      return "Completed"
+    case STATUS.OVERDUE:
+      return "Overdue";
+    case STATUS.NOT_STARTED: 
+      return "Not started"
   }
 }

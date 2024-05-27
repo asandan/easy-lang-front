@@ -1,14 +1,14 @@
-import { StatusBarType } from "./constants";
+import { OrderStatus, STATUS } from "./constants";
 
-export const getStatusBarColor = (status: StatusBarType) => {
+export const getStatusBarColor = (status: STATUS) => {
   switch (status) {
-    case StatusBarType.IN_PROGRESS:
+    case STATUS.IN_PROGRESS:
       return "#EF9B0F";
-    case StatusBarType.DONE:
+    case STATUS.TRANSLATED:
       return "#02B887"
-    case StatusBarType.UNTRANSLATED:
+    case STATUS.OVERDUE:
       return "#CA0F22";
-    case StatusBarType.DELAYED: 
+    case STATUS.NOT_STARTED: 
       return "#638BC8"
   }
 }

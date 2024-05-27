@@ -13,4 +13,30 @@ export const themeObject = (isDark: boolean): Theme =>
         main: secondaryColor,
       }
     },
+    components: {
+      MuiButton: {
+        styleOverrides: {
+          containedPrimary: {
+            background: "#00d264 !important",
+            ":disabled": {
+              background: "#e0e0e0 !important",
+            },
+            color: "white",
+            backgroundColor: "#fff"
+          },
+          containedSecondary: {
+            backgroundColor: "#7367F0 !important",
+            color: "#e0e0e0 !important",
+          },
+          outlinedPrimary: {
+            color: "#fff",
+            border: `2px solid #fff`,
+            text: "#fff",
+            ":hover": {
+              border: `2px solid #fff`,
+            }
+          },
+        },
+      },
+    }
   });

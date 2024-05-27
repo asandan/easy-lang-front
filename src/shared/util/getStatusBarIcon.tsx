@@ -1,15 +1,15 @@
 import { CircleCheckBig, CircleX, Clock, Timer } from "lucide-react";
-import { StatusBarType } from "./constants";
+import { STATUS } from "./constants";
 
-export const getStatusBarIcon = (status: StatusBarType) => {
+export const getStatusBarIcon = (status: STATUS) => {
   switch (status) {
-    case StatusBarType.IN_PROGRESS:
+    case STATUS.IN_PROGRESS:
       return Clock;
-    case StatusBarType.DONE:
+    case STATUS.TRANSLATED:
       return CircleCheckBig;
-    case StatusBarType.UNTRANSLATED:
+    case STATUS.OVERDUE:
       return CircleX;
-    case StatusBarType.DELAYED:
+    default:
       return Timer;
   }
 };
