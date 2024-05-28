@@ -25,8 +25,8 @@ export const themeObject = (isDark: boolean): Theme =>
             backgroundColor: "#fff"
           },
           containedSecondary: {
-            backgroundColor: "#7367F0 !important",
-            color: "#e0e0e0 !important",
+            backgroundColor: "#aaa !important",
+            color: "#fff !important",
           },
           outlinedPrimary: {
             color: "#fff",

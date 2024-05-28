@@ -6,3 +6,5 @@ export * from './constants';
 export * from './getReadableDate'
 export * from './getPercentage';
 export * from './getDaysPassed';
+export * from './getNotificationTheme';
+export * from './getNotificationIcon';

@@ -4,4 +4,5 @@ export type TranslatorStatsResponse = {
   totalOrdersInProgress: number;
   totalOrdersNotStarted: number;
   totalOrdersOverdue: number;
+  avatarPath?: string;
 }

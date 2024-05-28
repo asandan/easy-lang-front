@@ -26,7 +26,7 @@ export default function Home() {
     setPage(value);
   };
 
-  const { data: ordersData } = useQuery<{ data: CardResponse }>({
+  const { data: ordersData, refetch: refetchOrders } = useQuery<{ data: CardResponse }>({
     queryFn: api.getOrders({
       userId,
       role,
@@ -37,7 +37,7 @@ export default function Home() {
     queryKey: ["orders", tab, page],
   });
 
-  const { data: translatorStatsData } = useQuery<{
+  const { data: translatorStatsData, refetch: refetchStats } = useQuery<{
     data: TranslatorStatsResponse;
   }>({
     queryFn: api.getStats(userId),
@@ -56,11 +56,13 @@ export default function Home() {
         inProgress={translatorStatsData?.data.totalOrdersInProgress ?? 0}
         overdue={translatorStatsData?.data.totalOrdersOverdue ?? 0}
         notStarted={translatorStatsData?.data.totalOrdersNotStarted ?? 0}
+        avatarUrl={translatorStatsData?.data.avatarPath ?? ""}
+        refetch={refetchStats}
       />
       <div className="flex flex-col gap-4">
         <Tabs tab={tab} handleChangeTab={handleChangeTab} />
         {ordersData?.data?.data?.map((order) => (
-          <OrderCard key={order.id} {...order} />
+          <OrderCard key={order.id} {...order} refetch={refetchOrders}/>
         ))}
         <div className="flex items-center justify-center w-full">
           <Pagination

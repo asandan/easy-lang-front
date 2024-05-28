@@ -8,7 +8,9 @@ import {
   STATUS,
 } from "@/shared/util";
 import { StatusBar } from "../StatusBar";
-import { FC } from "react";
+import { FC, useState } from "react";
+import { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
+import { CardResponse } from "@/shared";
 
 export type OrderCardProps = {
   status: STATUS;
@@ -19,6 +21,14 @@ export type OrderCardProps = {
   startedAt: null | string;
   deadlineAt: string;
   finishedAt: null | string;
+  refetch: (options?: RefetchOptions) => Promise<
+    QueryObserverResult<
+      {
+        data: CardResponse;
+      },
+      Error
+    >
+  >;
 };
 
 export const OrderCard: FC<OrderCardProps> = ({
@@ -29,7 +39,18 @@ export const OrderCard: FC<OrderCardProps> = ({
   totalPages,
   translatedPages,
   deadlineAt,
+  refetch,
 }) => {
+  const [open, setOpen] = useState<boolean>(false);
+  const handleOpenDialog = () => {
+    setOpen((prev) => !prev);
+  };
+
+  const canUpload =
+    status === STATUS.IN_PROGRESS ||
+    status === STATUS.NOT_STARTED ||
+    status === STATUS.OVERDUE;
+
   return (
     <div className="flex flex-col gap-3">
       <div className="flex flex-col w-[800px] h-[330px] bg-white rounded-xl">
@@ -40,8 +61,15 @@ export const OrderCard: FC<OrderCardProps> = ({
               <span className="text-2xl self-center">{title}</span>
             </div>
             <div className="flex flex-row gap-5">
-              <PinOff width={30} height={30} className="cursor-pointer" />
-              <Download width={30} height={30} className="cursor-pointer" />
+              {/* <PinOff width={30} height={30} className="cursor-pointer" /> */}
+              {canUpload && (
+                <Download
+                  width={30}
+                  height={30}
+                  className="cursor-pointer"
+                  onClick={handleOpenDialog}
+                />
+              )}
             </div>
           </div>
           <div className="flex justify-between mt-7">
@@ -88,7 +116,13 @@ export const OrderCard: FC<OrderCardProps> = ({
             </div>
           </div>
         </div>
-        <StatusBar status={status} />
+        <StatusBar
+          status={status}
+          orderId={id}
+          refetch={refetch}
+          handleOpenDialog={handleOpenDialog}
+          open={open}
+        />
       </div>
     </div>
   );
